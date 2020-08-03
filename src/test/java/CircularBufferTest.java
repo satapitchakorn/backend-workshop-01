@@ -48,4 +48,10 @@ public class CircularBufferTest {
         boolean result = cb.isEmpty();
         assertTrue("Buffer in not empty.", result);
     }
+
+    @Test
+    public void read_before_wirte_should_null() {
+        CircularBuffer cb = new CircularBuffer();
+        assertNull(cb.readData());
+    }
 }

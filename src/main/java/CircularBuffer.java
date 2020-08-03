@@ -21,6 +21,7 @@ public class CircularBuffer {
     public void writeData(String s) {
         this.buffer[writePointer] = s;
         writePointer++;
+        writePointer %= bufferSize;
     }
 
     public boolean isFUll() {
@@ -28,6 +29,7 @@ public class CircularBuffer {
         for (String str : this.buffer) {
             if (str == null)
                 continue;
+
             if (!str.isEmpty()) {
                 count++;
             }
@@ -36,6 +38,10 @@ public class CircularBuffer {
     }
 
     public String readData() {
-        return this.buffer[readPointer++];
+        String result = this.buffer[readPointer];
+        this.buffer[readPointer] = "";
+        readPointer++;
+        readPointer %= bufferSize;
+        return result;
     }
 }

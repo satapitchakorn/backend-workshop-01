@@ -29,4 +29,23 @@ public class CircularBufferTest {
         assertEquals("A", cb.readData());
         assertEquals("B", cb.readData());
     }
+
+    @Test
+    public void read_and_write_circular_buffer_2_rounds_should_empty() {
+        CircularBuffer cb = new CircularBuffer();
+        for (int i = 0; i < 10; i++) {
+            cb.writeData("A" + i);
+        }
+        for (int i = 0; i < 10; i++) {
+            assertEquals("A" + i, cb.readData());
+        }
+        for (int i = 0; i < 10; i++) {
+            cb.writeData("B" + i);
+        }
+        for (int i = 0; i < 10; i++) {
+            assertEquals("B" + i, cb.readData());
+        }
+        boolean result = cb.isEmpty();
+        assertTrue("Buffer in not empty.", result);
+    }
 }

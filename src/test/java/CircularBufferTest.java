@@ -54,4 +54,12 @@ public class CircularBufferTest {
         CircularBuffer cb = new CircularBuffer();
         assertNull(cb.readData());
     }
+
+    @Test
+    public void After_read_all_data_should_empty() {
+        CircularBuffer cb = new CircularBuffer();
+        cb.writeData("A");
+        cb.readData();
+        assertTrue(cb.isEmpty());
+    }
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="HelloWorldTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2020-08-03T06:45:48" hostname="THRL-1165" time="0.011">
+  <properties/>
+  <testcase name="sayHi_with_mac_should_return_Hello_Mac" classname="HelloWorldTest" time="0.01"/>
+  <testcase name="sayHi_should_return_Hello_World" classname="HelloWorldTest" time="0.0"/>
+  <testcase name="sayHi_with_satapitchakorn_should_return_Hello_Satapitchakorn" classname="HelloWorldTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

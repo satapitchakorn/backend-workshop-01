@@ -1,123 +1,74 @@
+import java.util.HashMap;
+import java.util.Map;
 
 public class TennisGame2 implements TennisGame {
-    public int P1point = 0;
-    public int P2point = 0;
+    private int player1Point, player2Point;
 
-    public String P1res = "";
-    public String P2res = "";
-    private String player1Name;
-    private String player2Name;
+    private final String player1Name, player2Name;
 
     public TennisGame2(String player1Name, String player2Name) {
         this.player1Name = player1Name;
         this.player2Name = player2Name;
     }
 
+    @Override
     public String getScore() {
-        String score = "";
-        if (P1point == P2point && P1point < 4) {
-            if (P1point == 0)
-                score = "Love";
-            if (P1point == 1)
-                score = "Fifteen";
-            if (P1point == 2)
-                score = "Thirty";
-            score += "-All";
-        }
-        if (P1point == P2point && P1point >= 3)
-            score = "Deuce";
+        Map<Integer, String> scoreName = new HashMap<Integer, String>() {{
+            put(0, "Love");
+            put(1, "Fifteen");
+            put(2, "Thirty");
+            put(3, "Forty");
+        }};
 
-        if (P1point > 0 && P2point == 0) {
-            if (P1point == 1)
-                P1res = "Fifteen";
-            if (P1point == 2)
-                P1res = "Thirty";
-            if (P1point == 3)
-                P1res = "Forty";
+        final String advantagePlayer1 = "Advantage player1";
+        final String advantagePlayer2 = "Advantage player2";
+        final String player1Win = "Win for player1";
+        final String player2Win = "Win for player2";
+        final String deuce = "Deuce";
+        final String all = "All";
 
-            P2res = "Love";
-            score = P1res + "-" + P2res;
-        }
-        if (P2point > 0 && P1point == 0) {
-            if (P2point == 1)
-                P2res = "Fifteen";
-            if (P2point == 2)
-                P2res = "Thirty";
-            if (P2point == 3)
-                P2res = "Forty";
-
-            P1res = "Love";
-            score = P1res + "-" + P2res;
-        }
-
-        if (P1point > P2point && P1point < 4) {
-            if (P1point == 2)
-                P1res = "Thirty";
-            if (P1point == 3)
-                P1res = "Forty";
-            if (P2point == 1)
-                P2res = "Fifteen";
-            if (P2point == 2)
-                P2res = "Thirty";
-            score = P1res + "-" + P2res;
-        }
-        if (P2point > P1point && P2point < 4) {
-            if (P2point == 2)
-                P2res = "Thirty";
-            if (P2point == 3)
-                P2res = "Forty";
-            if (P1point == 1)
-                P1res = "Fifteen";
-            if (P1point == 2)
-                P1res = "Thirty";
-            score = P1res + "-" + P2res;
+        String score;
+        if (player1Point > 2 && player2Point > 2) {
+            if (player1Point - player2Point == 2) {
+                score = player1Win;
+            } else if (player2Point - player1Point == 2) {
+                score = player2Win;
+            } else if (player1Point == player2Point) {
+                score = deuce;
+            } else {
+                if (player1Point > player2Point) {
+                    score = advantagePlayer1;
+                } else {
+                    score = advantagePlayer2;
+                }
+            }
+        } else {
+            if (player1Point == 4 || player2Point == 4) {
+                score = player1Point == 4 ? player1Win : player2Win;
+            } else if (player1Point == player2Point) {
+                score = scoreName.get(player1Point) + "-" + all;
+            } else {
+                score = scoreName.get(player1Point) + "-" + scoreName.get(player2Point);
+            }
         }
 
-        if (P1point > P2point && P2point >= 3) {
-            score = "Advantage player1";
-        }
-
-        if (P2point > P1point && P1point >= 3) {
-            score = "Advantage player2";
-        }
-
-        if (P1point >= 4 && P2point >= 0 && (P1point - P2point) >= 2) {
-            score = "Win for player1";
-        }
-        if (P2point >= 4 && P1point >= 0 && (P2point - P1point) >= 2) {
-            score = "Win for player2";
-        }
         return score;
     }
 
-    public void SetP1Score(int number) {
-
-        for (int i = 0; i < number; i++) {
-            P1Score();
-        }
-
+    public void increasePlayer1Score() {
+        player1Point++;
     }
 
-    public void SetP2Score(int number) {
-
-        for (int i = 0; i < number; i++) {
-            P2Score();
-        }
-
+    public void increasePlayer2Score() {
+        player2Point++;
     }
 
-    public void P1Score() {
-        P1point++;
-    }
-
-    public void P2Score() {
-        P2point++;
-    }
-
+    @Override
     public void wonPoint(String player) {
-        if (player == "player1")
-            P1Score();
-        else
-            P2Score();
+        if ("player1".equals(player)) { // avoid NullPointException
+            increasePlayer1Score();
+        } else {
+            increasePlayer2Score();
+        }
     }
 }

@@ -3,27 +3,24 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class CircularBufferTest {
+    CircularBuffer cb = new CircularBuffer();
 
     @Test
     public void create_new_buffer_should_empty() {
-        CircularBuffer cb = new CircularBuffer();
         boolean isEmpty = cb.isEmpty();
         assertTrue("Buffer is not empty.", isEmpty);
     }
 
     @Test
     public void create_new_buffer_with_default_size_should_10() {
-        CircularBuffer cb = new CircularBuffer();
         for (int i = 0; i < 10; i++) {
             cb.writeData("A" + 1);
         }
-        boolean isFull = cb.isFUll();
-        assertTrue("Buffer is not full.", isFull);
+        assertTrue("Buffer is not full.", cb.isFull());
     }
 
     @Test
-    public void write_A_to_buffer_should_read_A() {
-        CircularBuffer cb = new CircularBuffer();
+    public void write_A_B_to_buffer_should_read_A_B() {
         cb.writeData("A");
         cb.writeData("B");
         assertEquals("A", cb.readData());
@@ -32,7 +29,6 @@ public class CircularBufferTest {
 
     @Test
     public void read_and_write_circular_buffer_2_rounds_should_empty() {
-        CircularBuffer cb = new CircularBuffer();
         for (int i = 0; i < 10; i++) {
             cb.writeData("A" + i);
         }
@@ -50,14 +46,12 @@ public class CircularBufferTest {
     }
 
     @Test
-    public void read_before_wirte_should_null() {
-        CircularBuffer cb = new CircularBuffer();
+    public void read_before_write_should_null() {
         assertNull(cb.readData());
     }
 
     @Test
     public void After_read_all_data_should_empty() {
-        CircularBuffer cb = new CircularBuffer();
         cb.writeData("A");
         cb.readData();
         assertTrue(cb.isEmpty());

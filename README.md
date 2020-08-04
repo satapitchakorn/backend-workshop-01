@@ -1,5 +1,4 @@
 ## Problems ##
-### getScore method ###
 * แก้ไขชื่อที่ใช้เรียกคะแนนซ้ำกัน
 * ใช้ `if else conditions` แทน `if conditions`
 * ตั้งชื่อ method ให้สอดคล้องกับฟังก์ชันการทำงาน
